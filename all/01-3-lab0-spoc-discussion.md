@@ -97,14 +97,14 @@ SETGATE(intr, 0,1,2,3);
 请分析 [list.h](https://github.com/chyyuu/ucore_lab/blob/master/labcodes/lab2/libs/list.h)内容中大致的含义，并能include这个文件，利用其结构和功能编写一个数据结构链表操作的小C程序
 
 > 这个文件主要实现了一些链表操作的函数。比如增加以及删除，初始化，前一个元素或者后一个元素等等。<br />
-  代码如下所示：
-  	list_entry_t demo1;
-	list_entry_t demo2;
-	list_entry_t*  myentry1 =&demo1;
-	list_entry_t*  myentry2 =&demo2;
-	list_init(myentry1);
-	list_add_before(myentry1,myentry2);
-	list_entry_t* myentry3 = list_next(myentry2);
+  代码如下所示：<br />
+  	list_entry_t demo1; <br />
+	list_entry_t demo2; <br />
+	list_entry_t*  myentry1 =&demo1; <br />
+	list_entry_t*  myentry2 =&demo2; <br />
+	list_init(myentry1); <br />
+	list_add_before(myentry1,myentry2); <br />
+	list_entry_t* myentry3 = list_next(myentry2); <br />
 ---
 
 ## 开放思考题
