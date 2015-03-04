@@ -67,7 +67,7 @@ struct gatedesc {
 ```
 
 
-> 冒号后面的数字指的是前面的变量
+> 冒号后面的数字指的是前面的变量的位域，也就是表示的数的比特量的长度。
 
 对于如下的代码段，
 ```
@@ -92,15 +92,19 @@ SETGATE(intr, 0,1,2,3);
 ```
 请问执行上述指令后， intr的值是多少？
 
-- [x]  
-
-> 
+> 65538，因为按照规则算出来之后得到的值为0000 EE00 0001 0002，取低32位之后就是65538
 
 请分析 [list.h](https://github.com/chyyuu/ucore_lab/blob/master/labcodes/lab2/libs/list.h)内容中大致的含义，并能include这个文件，利用其结构和功能编写一个数据结构链表操作的小C程序
-- [x]  
 
-> 
-
+> 这个文件主要实现了一些链表操作的函数。比如增加以及删除，初始化，前一个元素或者后一个元素等等。<br />
+  代码如下所示：
+  	list_entry_t demo1;
+	list_entry_t demo2;
+	list_entry_t*  myentry1 =&demo1;
+	list_entry_t*  myentry2 =&demo2;
+	list_init(myentry1);
+	list_add_before(myentry1,myentry2);
+	list_entry_t* myentry3 = list_next(myentry2);
 ---
 
 ## 开放思考题
@@ -108,8 +112,7 @@ SETGATE(intr, 0,1,2,3);
 ---
 
 是否愿意挑战大实验（大实验内容来源于你的想法或老师列好的题目，需要与老师协商确定，需完成基本lab，但可不参加闭卷考试），如果有，可直接给老师email或课后面谈。
-- [x]  
 
->  
+>  不准备挑战大实验
 
 ---
