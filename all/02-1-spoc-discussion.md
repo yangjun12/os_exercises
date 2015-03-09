@@ -93,7 +93,7 @@
  
 ## 3.4 linux系统调用分析
  1. 通过分析[lab1_ex0](https://github.com/chyyuu/ucore_lab/blob/master/related_info/lab1/lab1-ex0.md)了解Linux应用的系统调用编写和含义。(w2l1)
- 
+
 > 
 (1) objdump命令是Linux下的反汇编命令工具。常用命令如下：
 * objdump -f lab1-ex0.exe:显示lab1-ex0.exe的文件头信息
@@ -114,7 +114,7 @@ objdump的主要功能就是反汇编进行调试。
 * f    源文件名称符号。
 * T    Global text 符号。
 * t    Local text 符号。
-* U    未定义符号。
+* U    未定义符号。<br />
 (3) 查看文件类型信息
 格式：
 file[OPTIONS...] [FILE...]
@@ -126,10 +126,10 @@ file[OPTIONS...] [FILE...]
 * -F,--seperatorSTRING 使用字符串作为分隔符，不再使用“：”
 * -i,--mime 显示文件的mime类型
 * -L,--dereference 显示符号链接所指向文件信息
-* -d,--debug 输出调试信息
-
+* -d,--debug 输出调试信息<br >
 (4)系统调用指运行在用户态的程序向操作系统内核请求需要更高权限运行的服务。<br />
 它是用户态进入内核态的入口，在一些有关计算机安全的如内存分配管理、线程维护等等的调用中尤为重要，这样设计提高了系统的安全性，并且使得编程人员对底层透明，不用关心底层的实现。Linux中实现系统调用用了I386体系结构中的软件中断，由内核函数实现。
+
  ```
   + 采分点：说明了objdump，nm，file的大致用途，说明了系统调用的具体含义
   - 答案没有涉及上述两个要点；（0分）
@@ -140,8 +140,10 @@ file[OPTIONS...] [FILE...]
  ```
  
  1. 通过调试[lab1_ex1](https://github.com/chyyuu/ucore_lab/blob/master/related_info/lab1/lab1-ex1.md)了解Linux应用的系统调用执行过程。(w2l1)
- 
-> 
+
+> strace常用来跟踪进程执行时的系统调用和所接收的信号,strace可以跟踪到一个进程产生的系统调用,包括参数，返回值，执行消耗的时间。<br />
+在本次系统调用中，分别调用了mmap,open,access,mprotect,munmap,brk,fstat,write,read,close,execve,arch_prctil这些过程。mmap将一个文件或者其它对象映射进内存,open 函数用于打开和创建文件,access判断是否具有存取文件的权限,mprotect: 设置内存访问权限,munmap删除特定地址区域的对象映射,brk实现虚拟内存到内存的映射,fstat由文件描述词取得文件状态,write系统调用，Linux内核会先进行若干检查，接着将数据复制进缓冲区。稍后，内核会在后台收集所有“脏”(有数据写入)缓冲区(内容跟相应磁盘块不同的所有缓冲区)，将它们安排成最佳顺序，接着写进磁盘。read函数从打开的设备或文件中读取数据,close关闭文件,execve运行可执行文件,arch-prctil设置架构特定的线程状态,这样就完成了系统调用的过程。
+
  ```
   + 采分点：说明了strace的大致用途，说明了系统调用的具体执行过程（包括应用，CPU硬件，操作系统的执行过程）
   - 答案没有涉及上述两个要点；（0分）
