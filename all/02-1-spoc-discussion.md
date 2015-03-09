@@ -23,7 +23,7 @@
 
 ## 3.2 系统启动流程
  1. 了解NTLDR的启动流程。<br />
- 
+
 > 
 1、电源自检程序开始运行<br />
 2、主引导记录被装入内存，并且程序开始执行<br />
@@ -49,14 +49,22 @@
 
  1. 比较NTLDR和GRUB的功能有差异。<br />
 
-> 
+> ntldr功能很少，只能引导win,只能装在硬盘。<br />
+  grub是第三方操作系统引导器，可以引导多种介质和操作系统。<br />
 
  1. 了解u-boot的功能。
-> 
+
+> U-Boot可支持的主要功能列表：<br />
+* 系统引导支持NFS挂载、RAMDISK(压缩或非压缩)形式的根文件系统；支持NFS挂载、从FLASH中引导压缩或非压缩系统内核；
+* 基本辅助功能强大的操作系统接口功能；可灵活设置、传递多个关键参数给操作系统，适合系统在不同开发阶段的调试要求与产品发布，尤以Linux支持最为强劲；支持目标板环境参数多种存储方式，如FLASH、NVRAM、EEPROM；
+* CRC32校验可校验FLASH中内核、RAMDISK镜像文件是否完好；
+* 设备驱动串口、SDRAM、FLASH、以太网、LCD、NVRAM、EEPROM、键盘、USB、PCMCIA、PCI、RTC等驱动支持；
+* 上电自检功能SDRAM、FLASH大小自动检测；SDRAM故障检测；CPU型号；
+* 特殊功能XIP内核引导；
 
 ## 3.3 中断、异常和系统调用比较
  1. 举例说明Linux中有哪些中断，哪些异常？
- 
+
 > (1)计算机对硬件的设备进行管理主要有中断和轮寻两种，中断是指硬件在需要的时候向内核发出信号占用资源，结束后让出资源。<br />
 例如：<br />
 * 软件中断（softIRQ）是内核提供的一种延迟执行机制，它完全由软件触发，虽然说是延迟机制，实际上，在大多数情况下，它与普通进程相比，能得到更快的响应时间。软中断也是其他一些内核机制的基础，比如tasklet，高分辨率timer等。<br />
@@ -142,7 +150,65 @@ file[OPTIONS...] [FILE...]
  1. 通过调试[lab1_ex1](https://github.com/chyyuu/ucore_lab/blob/master/related_info/lab1/lab1-ex1.md)了解Linux应用的系统调用执行过程。(w2l1)
 
 > strace常用来跟踪进程执行时的系统调用和所接收的信号,strace可以跟踪到一个进程产生的系统调用,包括参数，返回值，执行消耗的时间。<br />
-在本次系统调用中，分别调用了mmap,open,access,mprotect,munmap,brk,fstat,write,read,close,execve,arch_prctil这些过程。mmap将一个文件或者其它对象映射进内存,open 函数用于打开和创建文件,access判断是否具有存取文件的权限,mprotect: 设置内存访问权限,munmap删除特定地址区域的对象映射,brk实现虚拟内存到内存的映射,fstat由文件描述词取得文件状态,write系统调用，Linux内核会先进行若干检查，接着将数据复制进缓冲区。稍后，内核会在后台收集所有“脏”(有数据写入)缓冲区(内容跟相应磁盘块不同的所有缓冲区)，将它们安排成最佳顺序，接着写进磁盘。read函数从打开的设备或文件中读取数据,close关闭文件,execve运行可执行文件,arch-prctil设置架构特定的线程状态,这样就完成了系统调用的过程。
+gcc -o lab1-ex1.exe lab1-ex1.c返回的结果是基于时间排序的，不符合要求。<br />
+本次调用的命令为: gcc -tt lab1-ex1.exe lab1-ex1.c，返回的结果时基于时间的：<br />
+* 21:54:15.477561 execve("./lab1-ex1.exe", ["./lab1-ex1.exe"], [/* 63 vars */]) = 0
+* 21:54:15.478729 brk(0)                  = 0x92b000
+21:54:15.479053 access("/etc/ld.so.nohwcap", F_OK) = -1 ENOENT (No such file or directory)
+* 21:54:15.490855 mmap(NULL, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7f1d3daa0000
+* 21:54:15.490937 access("/etc/ld.so.preload", R_OK) = -1 ENOENT (No such file or directory)
+* 21:54:15.490994 open("/home/yangjun/ns2/ns-allinone-2.35/otcl-1.14/tls/x86_64/libc.so.6", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+* 21:54:15.491044 stat("/home/yangjun/ns2/ns-allinone-2.35/otcl-1.14/tls/x86_64", 0x7ffff184a1d0) = -1 ENOENT (No such * file or directory)
+* 21:54:15.491082 open("/home/yangjun/ns2/ns-allinone-2.35/otcl-1.14/tls/libc.so.6", O_RDONLY|O_CLOEXEC) = -1 ENOENT * (No such file or directory)
+* 21:54:15.491116 stat("/home/yangjun/ns2/ns-allinone-2.35/otcl-1.14/tls", 0x7ffff184a1d0) = -1 ENOENT (No such file or directory)
+* 21:54:15.491148 open("/home/yangjun/ns2/ns-allinone-2.35/otcl-1.14/x86_64/libc.so.6", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+* 21:54:15.491182 stat("/home/yangjun/ns2/ns-allinone-2.35/otcl-1.14/x86_64", 0x7ffff184a1d0) = -1 ENOENT (No such file or directory)
+* 21:54:15.491214 open("/home/yangjun/ns2/ns-allinone-2.35/otcl-1.14/libc.so.6", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+* 21:54:15.491248 stat("/home/yangjun/ns2/ns-allinone-2.35/otcl-1.14", {st_mode=S_IFDIR|0755, st_size=4096, ...}) = 0
+* 21:54:15.491287 open("/home/yangjun/ns2/ns-allinone-2.35/lib/tls/x86_64/libc.so.6", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+* 21:54:15.491321 stat("/home/yangjun/ns2/ns-allinone-2.35/lib/tls/x86_64", 0x7ffff184a1d0) = -1 ENOENT (No such file or directory)
+* 21:54:15.491354 open("/home/yangjun/ns2/ns-allinone-2.35/lib/tls/libc.so.6", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+* 21:54:15.491387 stat("/home/yangjun/ns2/ns-allinone-2.35/lib/tls", 0x7ffff184a1d0) = -1 ENOENT (No such file or directory)
+* 21:54:15.491419 open("/home/yangjun/ns2/ns-allinone-2.35/lib/x86_64/libc.so.6", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+* 21:54:15.491452 stat("/home/yangjun/ns2/ns-allinone-2.35/lib/x86_64", 0x7ffff184a1d0) = -1 ENOENT (No such file or directory)
+* 21:54:15.491484 open("/home/yangjun/ns2/ns-allinone-2.35/lib/libc.so.6", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+* 21:54:15.491517 stat("/home/yangjun/ns2/ns-allinone-2.35/lib", {st_mode=S_IFDIR|0755, st_size=4096, ...}) = 0
+* 21:54:15.491554 open("/etc/ld.so.cache", O_RDONLY|O_CLOEXEC) = 3
+* 21:54:15.491590 fstat(3, {st_mode=S_IFREG|0644, st_size=93203, ...}) = 0
+* 21:54:15.491622 mmap(NULL, 93203, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7f1d3da89000
+* 21:54:15.491655 close(3)                = 0
+* 21:54:15.491688 access("/etc/ld.so.nohwcap", F_OK) = -1 ENOENT (No such file or directory)
+* 21:54:15.491730 open("/lib/x86_64-linux-gnu/libc.so.6", O_RDONLY|O_CLOEXEC) = 3
+* 21:54:15.491767 read(3, "\177ELF\2\1\1\0\0\0\0\0\0\0\0\0\3\0>\0\1\0\0\0\320\37\2\0\0\0\0\0"..., 832) = 832
+* 21:54:15.491805 fstat(3, {st_mode=S_IFREG|0755, st_size=1845024, ...}) = 0
+* 21:54:15.491844 mmap(NULL, 3953344, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_DENYWRITE, 3, 0) = 0x7f1d3d4ba000
+* 21:54:15.491878 mprotect(0x7f1d3d675000, 2097152, PROT_NONE) = 0
+* 21:54:15.491925 mmap(0x7f1d3d875000, 24576, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x1bb000) = 0x7f1d3d875000
+* 21:54:15.491981 mmap(0x7f1d3d87b000, 17088, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_ANONYMOUS, -1, 0) = 0x7f1d3d87b000
+* 21:54:15.492031 close(3)                = 0
+* 21:54:15.492082 mmap(NULL, 4096, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7f1d3da88000
+* 21:54:15.492129 mmap(NULL, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7f1d3da86000
+* 21:54:15.492178 arch_prctl(ARCH_SET_FS, 0x7f1d3da86740) = 0
+* 21:54:15.492391 mprotect(0x7f1d3d875000, 16384, PROT_READ) = 0
+* 21:54:15.492522 mprotect(0x600000, 4096, PROT_READ) = 0
+* 21:54:15.492578 mprotect(0x7f1d3daa2000, 4096, PROT_READ) = 0
+* 21:54:15.492624 munmap(0x7f1d3da89000, 93203) = 0
+* 21:54:15.492720 fstat(1, {st_mode=S_IFCHR|0620, st_rdev=makedev(136, 10), ...}) = 0
+* 21:54:15.492823 mmap(NULL, 4096, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7f1d3da9f000
+* 21:54:15.492887 write(1, "hello world\n", 12hello world
+) = 12
+* 21:54:15.492993 exit_group(12)          = ?
+* 21:54:15.493095 +++ exited with 12 +++
+在本次系统调用中，分别调用了mmap,open,access,mprotect,munmap,brk,fstat,write,read,close,execve,arch_prctil这些过程。
+* mmap将一个文件或者其它对象映射进内存
+* open 函数用于打开和创建文件
+* access判断是否具有存取文件的权限
+* mprotect: 设置内存访问权限
+* munmap删除特定地址区域的对象映射
+* brk实现虚拟内存到内存的映射
+* fstat由文件描述词取得文件状态
+* write系统调用 <br />
+Linux内核会先进行若干检查，接着将数据复制进缓冲区。稍后，内核会在后台收集所有“脏”(有数据写入)缓冲区(内容跟相应磁盘块不同的所有缓冲区)，将它们安排成最佳顺序，接着写进磁盘。read函数从打开的设备或文件中读取数据,close关闭文件,execve运行可执行文件,arch-prctil设置架构特定的线程状态,这样就完成了系统调用的过程。
 
  ```
   + 采分点：说明了strace的大致用途，说明了系统调用的具体执行过程（包括应用，CPU硬件，操作系统的执行过程）
