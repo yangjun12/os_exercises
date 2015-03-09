@@ -8,6 +8,7 @@
 > (1)UEFI已具备文件系统的支持，而BIOS不具备文件系统支持 <br />
   (2)BIOS下启动操作系统之前，必须从硬盘上指定扇区读取系统启动代码（包含在主引导记录中），然后从活动分区中引导启动操作系统。而UEFI则不需要。<br />
   (3)BIOS的空间比较有限，很难有新的提升，并且对新硬件支持不足，相反，UEFI能够很好地支持。<br />
+  
  1. 描述PXE的大致启动流程。
 
 > 
@@ -78,7 +79,7 @@
 ## 3.4 linux系统调用分析
  1. 通过分析[lab1_ex0](https://github.com/chyyuu/ucore_lab/blob/master/related_info/lab1/lab1-ex0.md)了解Linux应用的系统调用编写和含义。(w2l1)
  
-
+> 
  ```
   + 采分点：说明了objdump，nm，file的大致用途，说明了系统调用的具体含义
   - 答案没有涉及上述两个要点；（0分）
@@ -90,7 +91,7 @@
  
  1. 通过调试[lab1_ex1](https://github.com/chyyuu/ucore_lab/blob/master/related_info/lab1/lab1-ex1.md)了解Linux应用的系统调用执行过程。(w2l1)
  
-
+> 
  ```
   + 采分点：说明了strace的大致用途，说明了系统调用的具体执行过程（包括应用，CPU硬件，操作系统的执行过程）
   - 答案没有涉及上述两个要点；（0分）
