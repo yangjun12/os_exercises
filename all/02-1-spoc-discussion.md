@@ -59,8 +59,8 @@
  
 > (1)计算机对硬件的设备进行管理主要有中断和轮寻两种，中断是指硬件在需要的时候向内核发出信号占用资源，结束后让出资源。<br />
 例如：<br />
-× 软件中断（softIRQ）是内核提供的一种延迟执行机制，它完全由软件触发，虽然说是延迟机制，实际上，在大多数情况下，它与普通进程相比，能得到更快的响应时间。软中断也是其他一些内核机制的基础，比如tasklet，高分辨率timer等。<br />
-× 硬中断是由硬件产生的，比如，像磁盘，网卡，键盘，时钟等。每个设备或设备集都有它自己的IRQ（中断请求）。基于IRQ，CPU可以将相应的请求分发到对应的硬件驱动上<br />
+* 软件中断（softIRQ）是内核提供的一种延迟执行机制，它完全由软件触发，虽然说是延迟机制，实际上，在大多数情况下，它与普通进程相比，能得到更快的响应时间。软中断也是其他一些内核机制的基础，比如tasklet，高分辨率timer等。<br />
+* 硬中断是由硬件产生的，比如，像磁盘，网卡，键盘，时钟等。每个设备或设备集都有它自己的IRQ（中断请求）。基于IRQ，CPU可以将相应的请求分发到对应的硬件驱动上<br />
   (2)异常，就是可以打断CPU正常运行流程的一些事情，如代码运行错误，CPU内部错误，内核缺页异常，试图修改只读的数据等等。<br />
 
  1. Linux的系统调用有哪些？大致的功能分类有哪些？  (w2l1)
@@ -79,9 +79,10 @@
  
  1. 以ucore lab8的answer为例，uCore的系统调用有哪些？大致的功能分类有哪些？(w2l1)
  
-> 系统的调用有22个: <br />
-× 进程管理: sys_exit sys_fork sys_wait sys_exec sys_yield sys_kill sys_getpid sys_putc sys_pgdir sys_gettime sys_lab6_set_priority sys_sleep 
-× 文件操作: sys_open sys_close sys_read sys_write sys_seek sys_fstat sys_fsync sys_getcwd sys_getcwd sys_getdirentry sys_dup 
+> 系统的调用有22个,主要的系统分类为文件操作、进程管理、内存管理等，因为网络方面没有做基本要求，所以没有，这些方面函数的归类如下所示:<br />
+* 进程管理: sys_exit sys_fork sys_wait sys_exec sys_yield sys_kill sys_getpid sys_putc sys_pgdir sys_gettime sys_lab6_set_priority sys_sleep 
+* 文件操作: sys_open sys_close sys_read sys_write sys_seek sys_fstat sys_fsync sys_getcwd sys_getcwd sys_getdirentry sys_dup 
+
  ```
   + 采分点：说明了ucore的大致数量（二十几个），说明了ucore系统调用的主要分类（文件操作，进程管理，内存管理等）
   - 答案没有涉及上述两个要点；（0分）
