@@ -95,6 +95,41 @@
  1. 通过分析[lab1_ex0](https://github.com/chyyuu/ucore_lab/blob/master/related_info/lab1/lab1-ex0.md)了解Linux应用的系统调用编写和含义。(w2l1)
  
 > 
+(1) objdump命令是Linux下的反汇编命令工具。常用命令如下：
+* objdump -f lab1-ex0.exe:显示lab1-ex0.exe的文件头信息
+* objdump -d lab1-ex0.exe:显示lab1-ex0.exe的需要执行指令的那些section
+* objdump -D lab1-ex0.exe:显示lab1-ex0.exe的所有section，汇编代码很清楚，这个指令应该是最常用的
+* objdump -h lab1-ex0.exe:显示lab1-ex0.exe的SectionHeader信息
+* objdump -x lab1-ex0.exe:显示lab1-ex0.exe的全部Header信息
+* objdump -s lab1-ex0.exe:除了显示lab1-ex0.exe的全部Header信息以及对应十六进制文件代码的对照。
+objdump的主要功能就是反汇编进行调试。
+(2) nm命令显示关于指定 File 中符号的信息，文件可以是对象文件、可执行文件或对象文件库。如果文件没有包含符号信息，nm 命令报告该情况，但不把它解释为出错条件。 nm 命令缺省情况下报告十进制符号表示法下的数字值。<br />
+命令格式如右所示：nm -A a.exe。而中间的符号不同的话，表示的含义也不同：<br />
+* A    Global absolute 符号。
+* a    Local absolute 符号。
+* B    Global bss 符号。
+* b    Local bss 符号。
+* D    Global data 符号。
+* d    Local data 符号。
+* f    源文件名称符号。
+* T    Global text 符号。
+* t    Local text 符号。
+* U    未定义符号。
+(3) 查看文件类型信息
+格式：
+file[OPTIONS...] [FILE...]
+主要参数：
+* --help       显示帮助信息
+* -v,--version 输出版本信息并退出
+* -b,--brief   不显示文件名字
+* -f,--files-fromFILE  读取待测试的名称文件
+* -F,--seperatorSTRING 使用字符串作为分隔符，不再使用“：”
+* -i,--mime 显示文件的mime类型
+* -L,--dereference 显示符号链接所指向文件信息
+* -d,--debug 输出调试信息
+
+(4)系统调用指运行在用户态的程序向操作系统内核请求需要更高权限运行的服务。<br />
+它是用户态进入内核态的入口，在一些有关计算机安全的如内存分配管理、线程维护等等的调用中尤为重要，这样设计提高了系统的安全性，并且使得编程人员对底层透明，不用关心底层的实现。Linux中实现系统调用用了I386体系结构中的软件中断，由内核函数实现。
  ```
   + 采分点：说明了objdump，nm，file的大致用途，说明了系统调用的具体含义
   - 答案没有涉及上述两个要点；（0分）
