@@ -65,6 +65,10 @@
 
  1. Linux的系统调用有哪些？大致的功能分类有哪些？  (w2l1)
 
+> linux的系统调用有大概上百个，主要分类如下：<br />
+一、进程管理：有四五十个，包括创建新进程、终止进程、创建子进程、设置或获取调度优先级等等；<br /> 二、文件操作：四十个左右，包括文件读写操作，以及文件系统操作（创建目录、删除目录、改变当前目录、获取当前目录等等） <br />
+三、系统控制：二十多个，可获取与设置系统资源上限、打开与关闭交换文件和设备等 <br /> 四、内存管理：十几个，如内存页面加锁与解锁、改编数据段空间分配等 <br /> 五、网络管理：六七个，如取域名、设置域名、以及获取与设置主机标识号等 <br /> 六、socket控制：二十个左右，如建立socket、绑定socket、监听socket、响应socket等 <br /> 七、用户管理：二十个左右，获取、设置用户、组标识号等等 <br /> 通过上面可以看到，Linux的系统调用数量有一百多个，主要有有进程管理、文件操作、内存管理、系统控制、网络管理、socket控制、用户管理等。
+
 ```
   + 采分点：说明了Linux的大致数量（上百个），说明了Linux系统调用的主要分类（文件操作，进程管理，内存管理等）
   - 答案没有涉及上述两个要点；（0分）
@@ -75,6 +79,9 @@
  
  1. 以ucore lab8的answer为例，uCore的系统调用有哪些？大致的功能分类有哪些？(w2l1)
  
+> 系统的调用有22个: <br />
+× 进程管理: sys_exit sys_fork sys_wait sys_exec sys_yield sys_kill sys_getpid sys_putc sys_pgdir sys_gettime sys_lab6_set_priority sys_sleep 
+× 文件操作: sys_open sys_close sys_read sys_write sys_seek sys_fstat sys_fsync sys_getcwd sys_getcwd sys_getdirentry sys_dup 
  ```
   + 采分点：说明了ucore的大致数量（二十几个），说明了ucore系统调用的主要分类（文件操作，进程管理，内存管理等）
   - 答案没有涉及上述两个要点；（0分）
