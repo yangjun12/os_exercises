@@ -53,8 +53,31 @@ lab1中的cprintf函数最终通过哪些外设完成了对字符串的输出？
 ---
 
 lab1中printfmt函数用到了可变参，请参考写一个小的linux应用程序，完成实现定义和调用一个可变参数的函数。(spoc)
-- [x]  
 
+> 程序代码如下所示：
+\#include \<stdio.h\><br />
+\#include \<stdarg.h\><br />
+\#include \<unistd.h\><br />
+int addall(int num,...){<br />
+	va_list ap;<br />
+	int sum=0;<br />
+	va_start(ap, num);<br />
+	while(num--){<br />
+    	sum+=va_arg(ap,int);<br />
+	}<br />
+  va_end(ap);<br />
+	return sum;<br />
+}<br />
+int main(){<br />
+	printf("%d\n",addall(3,20,1,2));<br />
+}<br />
+* va_list 是一个字符指针，可以理解为指向当前参数的一个指针，取参必须通过这个指针进行
+* va_start使得ap指向不确定参数前的那个值，在这份代码中，是总数num，这是对ap 的初始化，
+* va_arg用来依次获得指定类型的参数
+* va_end用来回收这个指针，以免发生安全上的隐患。<br />
+以上的传参方法虽然很好用，但是也有两方面的问题：
+* 输入参数的类型随意，这使得参数很容易以一个不正确的类型获取一个值(譬如输入一个float，却以int型去获取)，这样做不好调试
+* 变参表的大小并不能在运行时获取（每次传参时同时告诉参数的数量也不现实），很容易访问越界
 
 
 如果让你来一个阶段一个阶段地从零开始完整实现lab1（不是现在的填空考方式），你的实现步骤是什么？（比如先实现一个可显示字符串的bootloader（描述一下要实现的关键步骤和需要注意的事项），再实现一个可加载ELF格式文件的bootloader（再描述一下进一步要实现的关键步骤和需要注意的事项）...） (spoc)
