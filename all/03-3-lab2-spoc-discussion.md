@@ -73,8 +73,8 @@ e820map:
 - [x]  
 
 > memlayout.h的文件当中的map的结构体当中我们找到map的type当中对应的值是如下的：<br />
-#define E820_ARM            1       // address range memory   <br />
-#define E820_ARR            2       // address range reserved <br />
+\#define E820_ARM            1       // address range memory   <br />
+\#define E820_ARR            2       // address range reserved <br />
 说明了1是指这一个页是正在被使用的，而2是指这个页是无效的。
 
 （4）(spoc)有一台只有页机制的简化80386的32bit计算机，有地址范围位0~256MB的物理内存空间（physical memory），可表示大小为256MB，范围为0xC0000000~0xD0000000的虚拟地址空间（virtual address space）,页大小（page size）为4KB，采用二级页表，一个页目录项（page directory entry ，PDE）大小为4B,一个页表项（page-table entries PTEs）大小为4B，1个页目录表大小为4KB，1个页表大小为4KB。
