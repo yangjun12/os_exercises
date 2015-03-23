@@ -126,42 +126,42 @@ va 0xce6c3f32, pa 0x007d4f32, pde_idx 0x00000339, pde_ctx 0x0003a003, pte_idx 0x
 这个程序最后得到的pte_ctx可能有误（因为不确定是否是前面的16位），主要的原因是题目意思不明确。<br />
 因为两级页表共有20位，则页内偏移自然就要有12位，那么256M的实地址为18位，则需要页表提供一个16位的索引。<br />
 代码如下所示：<br />
-\#include <stdio.h>
-\#include <stdlib.h>
-int char2int(char a){ 
-	return (a>58)?(a-87):(a-48); 
-} 
-int value(char* a,int start){ 
-	int i=0,sum=0; 
-	for(;i<8;i++){ 
-		sum*=16;
-		sum+=char2int(a[start+i]);
-	}
-	return sum;
-}
-int main(){
-	FILE *fp=fopen("data.txt","rt");
-	int index=0;
-	char a[1024];
-	int offset = 9;
-	unsigned int page=0x00;
-	int data1=0,data2=0;
-	int pde_idx=0,pde_ctx,pte_idx,pte_ctx;
-	int i=0;
-	while(!feof(fp)){
-		fgets(a,1000,fp);
-			data1=value(a,5);
-			data2=value(a,20);
-			unsigned int data3=(unsigned int)data1;
-			unsigned int data4=(unsigned int)data2;
-			pde_idx=data3/(1024*1024*4);
-			pde_ctx=((data3/(1024*1024*4)-0x300)+1)<<12|3;
-			pte_idx=(data3/4096)%1024;
-			pte_ctx=(data4/4096)<<20|3;
-			printf("va 0x%.8x, pa 0x%.8x, pde_idx 0x%.8x, pde_ctx 0x%.8x, pte_idx 0x%.8x, pte_ctx 0x%.8x\n",data1,data2,pde_idx,pde_ctx,pte_idx,pte_ctx);
-	};
-	return 0;
-}
+\#include <stdio.h><br />
+\#include <stdlib.h><br />
+int char2int(char a){ <br />
+	return (a>58)?(a-87):(a-48); <br />
+} <br />
+int value(char* a,int start){ <br />
+	int i=0,sum=0; <br />
+	for(;i<8;i++){ <br />
+		sum*=16;<br />
+		sum+=char2int(a[start+i]);<br />
+	}<br />
+	return sum;<br />
+}<br />
+int main(){<br />
+	FILE *fp=fopen("data.txt","rt");<br />
+	int index=0;<br />
+	char a[1024];<br />
+	int offset = 9;<br />
+	unsigned int page=0x00;<br />
+	int data1=0,data2=0;<br />
+	int pde_idx=0,pde_ctx,pte_idx,pte_ctx;<br />
+	int i=0;<br />
+	while(!feof(fp)){<br />
+		fgets(a,1000,fp);<br />
+			data1=value(a,5);<br />
+			data2=value(a,20);<br />
+			unsigned int data3=(unsigned int)data1;<br />
+			unsigned int data4=(unsigned int)data2;<br />
+			pde_idx=data3/(1024*1024*4);<br />
+			pde_ctx=((data3/(1024*1024*4)-0x300)+1)<<12|3;<br />
+			pte_idx=(data3/4096)%1024;<br />
+			pte_ctx=(data4/4096)<<20|3;<br />
+			printf("va 0x%.8x, pa 0x%.8x, pde_idx 0x%.8x, pde_ctx 0x%.8x, pte_idx 0x%.8x, pte_ctx 0x%.8x\n",data1,data2,pde_idx,pde_ctx,pte_idx,pte_ctx);<br />
+	};<br />
+	return 0;<br />
+}<br />
 
 ---
 
