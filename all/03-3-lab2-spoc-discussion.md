@@ -126,14 +126,14 @@ va 0xce6c3f32, pa 0x007d4f32, pde_idx 0x00000339, pde_ctx 0x0003a003, pte_idx 0x
 这个程序最后得到的pte_ctx可能有误（因为不确定是否是前面的16位），主要的原因是题目意思不明确。<br />
 因为两级页表共有20位，则页内偏移自然就要有12位，那么256M的实地址为18位，则需要页表提供一个16位的索引。<br />
 代码如下所示：<br />
-#include <stdio.h>
-#include <stdlib.h>
-int char2int(char a){
-	return (a>58)?(a-87):(a-48);
-}
-int value(char* a,int start){
-	int i=0,sum=0;
-	for(;i<8;i++){
+\#include <stdio.h>
+\#include <stdlib.h>
+int char2int(char a){ 
+	return (a>58)?(a-87):(a-48); 
+} 
+int value(char* a,int start){ 
+	int i=0,sum=0; 
+	for(;i<8;i++){ 
 		sum*=16;
 		sum+=char2int(a[start+i]);
 	}
