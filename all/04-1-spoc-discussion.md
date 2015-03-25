@@ -149,8 +149,8 @@ Virtual Address 1e6f(0 001_11 10_011 0_1111):
 ```
 > 程序是基于前面的代码实现修改得到的，主要要解决的问题是当出现了缺页之后如何处理，当出现缺页后，我们不能够从主存中得到相对应的数据，而需要从disk中获得相对应的值。
 ```
-\#include <stdio.h>
-\#include <stdlib.h>
+#include <stdio.h>
+#include <stdlib.h>
 unsigned int  mem[128][32];
 unsigned int disk[128][32];
 int char2int(char a){
@@ -200,7 +200,7 @@ int main(){
 		}
 		index++;
 	};
-FILE *fp1=fopen("disk.txt","rt");
+	FILE *fp1=fopen("disk.txt","rt");
 	index=0;
 	while(!feof(fp1)){
 		fgets(a,1000,fp1);
