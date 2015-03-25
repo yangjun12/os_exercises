@@ -147,7 +147,8 @@ Virtual Address 1e6f(0 001_11 10_011 0_1111):
            0d 15 0a 1a 0c 12 1e 11 0e 02 1d 10 15 14 07 13
       --> To Disk Sector Address 0x2cf(0001011001111) --> Value: 1c
 ```
-> 
+> 程序是基于前面的代码实现修改得到的，主要要解决的问题是当出现了缺页之后如何处理，当出现缺页后，我们不能够从主存中得到相对应的数据，而需要从disk中获得相对应的值。
+```
 \#include <stdio.h>
 \#include <stdlib.h>
 unsigned int  mem[128][32];
@@ -219,7 +220,7 @@ FILE *fp1=fopen("disk.txt","rt");
 	}
 	return 0;
 }
-
+```
 
 ## 扩展思考题
 ---
