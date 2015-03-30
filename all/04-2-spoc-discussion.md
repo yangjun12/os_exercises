@@ -111,9 +111,7 @@ int main(){
 } 
 ```
 
-在工作集中记录一个内存的访问时间，存储二元组（n, time)
- - 当页访问命中时，遍历工作集中的每一个项，检查其访问时间和当前时间之差是否超过窗口，如果超过则移除。
- - 当页访问缺失时，直接将页加入到工作集中，此时可能导致工作集增大。
+
 
 
  - [页置换算法实现的参考实例](https://github.com/chyyuu/ucore_lab/blob/master/related_info/lab3/page-replacement-policy.py)
