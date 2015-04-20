@@ -67,5 +67,62 @@ https://github.com/chyyuu/ucore_lab/blob/master/related_info/lab1/lab1-boot-with
 
 阅读代码，在现有基础上再增加一个用户进程A，并通过增加cprintf函数到ucore代码中，
 能够把个人思考题和上述知识点中的内容展示出来：即在ucore运行过程中通过`cprintf`函数来完整地展现出来进程A相关的动态执行和内部数据/状态变化的细节。(约全面细致约好)
+```
+                      exchange  stack(esp)
+                       exchange page
+                         alloce  init all fields of proc_struct  !
+   in user_main
+the process 0 is now waiting
+                       exchange  stack(esp)
+                       exchange page
+kernel_execve: pid = 2, name = "spin".
+run a process!
+has changed to user mode!
+I am the parent. Forking the child...
+                         alloce  init all fields of proc_struct  !
+I am the parent. Running the child...
+                       exchange  stack(esp)
+                       exchange page
+I am the child. spinning ...
+                       exchange  stack(esp)
+                       exchange page
+                       exchange context
+proc_exchange!
+                       exchange  stack(esp)
+                       exchange page
+                       exchange context
+proc_exchange!
+                       exchange  stack(esp)
+                       exchange page
+                       exchange context
+proc_exchange!
+                       exchange  stack(esp)
+                       exchange page
+                       exchange context
+proc_exchange!
+                       exchange  stack(esp)
+                       exchange page
+                       exchange context
+proc_exchange!
+I am the parent.  Killing the child...
+kill the process 3
+kill returns 0
+the process 3 is now waiting
+                       exchange  stack(esp)
+                       exchange page
+                       exchange context
+proc_exchange!
+                       exchange  stack(esp)
+                       exchange page
+                       exchange context
+proc_exchange!
+wait returns 0
+spin may pass.
+                       exchange  stack(esp)
+                       exchange page
+                       exchange context
+proc_exchange!
+the process 0 is now waiting
+```
 
 请完成如下练习，完成代码填写，并形成spoc练习报告
