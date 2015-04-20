@@ -124,5 +124,6 @@ spin may pass.
 proc_exchange!
 the process 0 is now waiting
 ```
+> 关于如何打印从用户态到内核态，以及内核态到用户态的转换的临界状态，我需要再研究一下。课堂上面要弄懂太难，容我下来再研究一下。
 
 请完成如下练习，完成代码填写，并形成spoc练习报告
