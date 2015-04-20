@@ -44,7 +44,7 @@
 
 https://github.com/chyyuu/ucore_lab/blob/master/related_info/lab1/lab1-boot-with-grub2-in-udisk.md
 
-> 注意，grub_kernel的源码在ucore_lab的lab1_X的git branch上，位于 `ucore_lab/labcodes_answer/lab1_result`
+> 按照网址说明的步骤，最先做的是一些准备工作，这些工作包括u盘的格式化并且能够建立一个分区，这些在windows下面需要专业的工具，但是在linux下只需要一些命令即可。接下来需要在U盘上安装grub2,作为引导程序，这时候在U盘根目录出现/boot/grub/目录，在此目录下创建配置文件grub.cfg。接下来，编译ucore，利用make mboot，产生了bin/grub_kernel文件,将此执行文件放到/boot目录下。重启机器，选择U盘启动，即可用u盘启动。
 
 (报告可课后完成)请理解grub multiboot spec的含义，并分析ucore_lab是如何实现符合grub multiboot spec的，并形成spoc练习报告。
 
