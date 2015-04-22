@@ -71,12 +71,9 @@
 
 > 下面是我的实现，感觉CPU 的调度比较简单
 ```
-#! /usr/bin/env python
-
 import sys
 from optparse import OptionParser
 import random
-
 parser = OptionParser()
 parser.add_option("-s", "--seed", default=0, help="the random seed", 
                   action="store", type="int", dest="seed")
@@ -91,11 +88,8 @@ parser.add_option("-p", "--policy", default="FIFO", help="sched policy to use: S
 parser.add_option("-q", "--quantum", help="length of time slice for RR policy", default=1, 
                   action="store", type="int", dest="quantum")
 parser.add_option("-c", help="compute answers for me", action="store_true", default=True, dest="solve")
-
 (options, args) = parser.parse_args()
-
 random.seed(options.seed)
-
 print 'ARG policy', options.policy
 if options.jlist == '':
     print 'ARG jobs', options.jobs
@@ -103,13 +97,9 @@ if options.jlist == '':
     print 'ARG seed', options.seed
 else:
     print 'ARG jlist', options.jlist
-
 print ''
-
 print 'Here is the job list, with the run time of each job: '
-
 import operator
-
 joblist = []
 if options.jlist == '':
     for jobnum in range(0,options.jobs):
@@ -124,12 +114,9 @@ else:
     for job in joblist:
         print '  Job', job[0], '( length = ' + str(job[1]) + ' )'
 print '\n'
-
 if options.solve == True:
     print '** Solutions **\n'
     if options.policy == 'SJF':
-		#YOUR CODE
-         
         print '\nFinal statistics:'
         t     = 0.0
         count = 0
@@ -150,13 +137,9 @@ if options.solve == True:
             t += runtime
             count = count + 1
         print '\n  Average -- Response: %3.2f  Turnaround %3.2f  Wait %3.2f\n' % (responseSum/count, turnaroundSum/count, waitSum/count)
-                     
-    	
     if options.policy == 'FIFO':
         thetime = 0
         print 'Execution trace:'
-		#YOUR CODE
-         
         print '\nFinal statistics:'
         t     = 0.0
         count = 0
@@ -166,7 +149,6 @@ if options.solve == True:
         for tmp in joblist:
             jobnum  = tmp[0]
             runtime = tmp[1]
-            
             response   = t
             turnaround = t + runtime
             wait       = t
@@ -177,7 +159,6 @@ if options.solve == True:
             t += runtime
             count = count + 1
         print '\n  Average -- Response: %3.2f  Turnaround %3.2f  Wait %3.2f\n' % (responseSum/count, turnaroundSum/count, waitSum/count)
-                     
     if options.policy == 'RR':
         print 'Execution trace:'
         turnaround = {}
@@ -191,11 +172,9 @@ if options.solve == True:
             wait[i] = 0.0
             turnaround[i] = 0.0
             response[i] = -1
-
         runlist = []
         for e in joblist:
             runlist.append(e)
-
         thetime  = 0.0
         while jobcount > 0:
             # print '%d jobs remaining' % jobcount
@@ -219,7 +198,6 @@ if options.solve == True:
                 jobcount -= 1
             thetime += ranfor
             lastran[jobnum] = thetime
-
         print '\nFinal statistics:'
         turnaroundSum = 0.0
         waitSum       = 0.0
@@ -230,9 +208,7 @@ if options.solve == True:
             waitSum += wait[i]
             print '  Job %3d -- Response: %3.2f  Turnaround %3.2f  Wait %3.2f' % (i, response[i], turnaround[i], wait[i])
         count = len(joblist)
-        
         print '\n  Average -- Response: %3.2f  Turnaround %3.2f  Wait %3.2f\n' % (responseSum/count, turnaroundSum/count, waitSum/count)
-
     if options.policy != 'FIFO' and options.policy != 'SJF' and options.policy != 'RR': 
         print 'Error: Policy', options.policy, 'is not available.'
         sys.exit(0)
@@ -243,10 +219,6 @@ else:
     print '-s <somenumber> or your own job list (-l 10,15,20 for example)'
     print 'to generate different problems for yourself.'
     print ''
-
-
-
-
 ```
 
 ```
