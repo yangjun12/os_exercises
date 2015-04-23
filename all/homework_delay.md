@@ -7,9 +7,9 @@
 > 1.2 教学安排：得分 0/11 <br />
   5.6 2.7 3.3 3.4 6.8 的简答题均在github的proc上面有对应习题并做了回答。<br />
   
-下列题目是忘记填写，现补如下：
+下列选择题是忘记填写，现补如下：
 
-[第一讲练习1.2](https://github.com/yangjun12/os_exercises/edit/master/all/1.2.md)
-[第三讲练习3.4](https://github.com/yangjun12/os_exercises/edit/master/all/3.4.md)
-[第七讲练习7.2 7.3 7.4](https://github.com/yangjun12/os_exercises/edit/master/all/7.34.md)
-[第十讲练习10](https://github.com/yangjun12/os_exercises/edit/master/all/10.md)
+[第一讲练习1.2](https://github.com/yangjun12/os_exercises/edit/master/all/1.2.md) 得分(0/15) <br />
+[第三讲练习3.4](https://github.com/yangjun12/os_exercises/edit/master/all/3.4.md) 得分(0/9) <br />
+[第七讲练习7.2 7.3 7.4](https://github.com/yangjun12/os_exercises/edit/master/all/7.34.md) 得分(0/8) <br />
+[第十讲练习10](https://github.com/yangjun12/os_exercises/edit/master/all/10.md) 得分(0/5) <br />
