@@ -43,4 +43,4 @@
 
 ### (2)lab_x题目解答：
 
-> 见[lab_x_answer]()
+> 见[lab_x_answer](https://github.com/yangjun12/os_exercises/blob/master/labx1_answer.md)
