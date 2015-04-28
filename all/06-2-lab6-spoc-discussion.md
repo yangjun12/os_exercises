@@ -37,7 +37,7 @@
 即在ucore运行过程中通过`cprintf`函数来完整地展现出来多个进程在调度算法和框架的支撑下，在相关调度点如何动态调度和执行的细节。(约全面细致约好)
 
 请完成如下练习，完成代码填写，并形成spoc练习报告
-> 程序见github,
+> 程序见github,[proc.c](https://github.com/yangjun12/os_exercises/blob/master/all/proc.c),[trap.c](https://github.com/yangjun12/os_exercises/blob/master/all/trap.c)
 
 ### 练习用的[lab6 spoc exercise project source code](https://github.com/chyyuu/ucore_lab/tree/master/labcodes_answer/lab6_result)
 
