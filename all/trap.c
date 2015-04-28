@@ -15,6 +15,7 @@
 #include <error.h>
 #include <sched.h>
 #include <sync.h>
+#include <proc.h>
 
 #define TICK_NUM 100
 
@@ -231,10 +232,8 @@ trap_dispatch(struct trapframe *tf) {
          *    Every TICK_NUM cycle, you should set current process's current->need_resched = 1
          */
         ticks ++;
-        if (ticks % TICK_NUM == 0) {
-            assert(current != NULL);
-            current->need_resched = 1;
-        }
+        assert(current != NULL);
+        run_timer_list();
         break;
     case IRQ_OFFSET + IRQ_COM1:
         c = cons_getc();
@@ -292,7 +291,10 @@ trap(struct trapframe *tf) {
                 do_exit(-E_KILLED);
             }
             if (current->need_resched) {
+                cprintf("**********parent in trap.c PID%d NAME%s\n",current->pid,current->name);
                 schedule();
+                cprintf("**********next  in trap.c PID%d NAME%s\n ",current->pid,current->name);
+
             }
         }
     }
