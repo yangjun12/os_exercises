@@ -117,6 +117,12 @@ alloc_proc(void) {
         memset(proc->name, 0, PROC_NAME_LEN);
         proc->wait_state = 0;
         proc->cptr = proc->optr = proc->yptr = NULL;
+        proc->rq = NULL;
+        proc->run_link.prev = proc->run_link.next = NULL;
+        proc->time_slice = 0;
+        proc->lab6_run_pool.left = proc->lab6_run_pool.right = proc->lab6_run_pool.parent = NULL;
+        proc->lab6_stride = 0;
+        proc->lab6_priority = 0;
     }
     return proc;
 }
@@ -264,7 +270,6 @@ kernel_thread(int (*fn)(void *), void *arg, uint32_t clone_flags) {
     tf.tf_regs.reg_ebx = (uint32_t)fn;
     tf.tf_regs.reg_edx = (uint32_t)arg;
     tf.tf_eip = (uint32_t)kernel_thread_entry;
-    cprintf("********************page size:  %d 0\n", nr_free_pages());
     return do_fork(clone_flags | CLONE_VM, 0, &tf);
 }
 
@@ -407,18 +412,16 @@ do_fork(uint32_t clone_flags, uintptr_t stack, struct trapframe *tf) {
     if ((proc = alloc_proc()) == NULL) {
         goto fork_out;
     }
-    cprintf("********************do fork 1 page size:  %d 0\n", nr_free_pages());
+
     proc->parent = current;
     assert(current->wait_state == 0);
 
     if (setup_kstack(proc) != 0) {
         goto bad_fork_cleanup_proc;
     }
-    cprintf("********************do fork 1.5  page size:  %d 0\n", nr_free_pages());
     if (copy_mm(clone_flags, proc) != 0) {
         goto bad_fork_cleanup_kstack;
     }
-    cprintf("********************do fork 2  page size:  %d 0\n", nr_free_pages());
     copy_thread(proc, stack, tf);
 
     bool intr_flag;
@@ -430,7 +433,7 @@ do_fork(uint32_t clone_flags, uintptr_t stack, struct trapframe *tf) {
 
     }
     local_intr_restore(intr_flag);
-    cprintf("********************do fork 3 page size:  %d 0\n", nr_free_pages());
+
     wakeup_proc(proc);
 
     ret = proc->pid;
@@ -496,8 +499,9 @@ do_exit(int error_code) {
         }
     }
     local_intr_restore(intr_flag);
-  //  cprintf("page size: %d %d", nr_free_pages_store, nr_free_pages());
+    cprintf("***********parent in exit.c PID%d NAME%s\n",current->pid,current->name);
     schedule();
+    cprintf("***********next in exit.c PID%d NAME%s\n",current->pid,current->name);
     panic("do_exit will not return!! %d.\n", current->pid);
 }
 
@@ -731,7 +735,9 @@ repeat:
     if (haskid) {
         current->state = PROC_SLEEPING;
         current->wait_state = WT_CHILD;
+        cprintf("***********parent in do wait PID%d NAME%s\n ",current->pid,current->name);
         schedule();
+        cprintf("***********next in do wait PID%d NAME%s\n ",current->pid,current->name);
         if (current->flags & PF_EXITING) {
             do_exit(-E_KILLED);
         }
@@ -822,26 +828,24 @@ static int
 init_main(void *arg) {
     size_t nr_free_pages_store = nr_free_pages();
     size_t kernel_allocated_store = kallocated();
-    cprintf("********************page size: %d %d 0\n", nr_free_pages_store, nr_free_pages());
+
     int pid = kernel_thread(user_main, NULL, 0);
-    cprintf("********************page size: %d %d 0.2\n", nr_free_pages_store, nr_free_pages());
     if (pid <= 0) {
         panic("create user_main failed.\n");
     }
-    cprintf("********************page size: %d %d 1\n", nr_free_pages_store, nr_free_pages());
+
     while (do_wait(0, NULL) == 0) {
+        cprintf("***********parent in init_main PID%d NAME%s\n ",current->pid,current->name);
         schedule();
+        cprintf("***********next in init_main PID%d NAME%s\n ",current->pid,current->name);
     }
 
     cprintf("all user-mode processes have quit.\n");
-    cprintf("********************page size: %d %d 2\n", nr_free_pages_store, nr_free_pages());
     assert(initproc->cptr == NULL && initproc->yptr == NULL && initproc->optr == NULL);
     assert(nr_process == 2);
     assert(list_next(&proc_list) == &(initproc->list_link));
-    cprintf("********************page size: %d %d 3\n", nr_free_pages_store, nr_free_pages());
     assert(list_prev(&proc_list) == &(initproc->list_link));
     assert(nr_free_pages_store == nr_free_pages());
-    cprintf("********************page size: %d %d 4\n", nr_free_pages_store, nr_free_pages());
     assert(kernel_allocated_store == kallocated());
     cprintf("init check memory pass.\n");
     return 0;
@@ -888,7 +892,18 @@ void
 cpu_idle(void) {
     while (1) {
         if (current->need_resched) {
+            cprintf("***********parent in cpu_idle PID%d NAME%s\n",current->pid,current->name);
             schedule();
+            cprintf("**********next in cpu_idle PID%d NAME%s\n",current->pid,current->name);
         }
     }
+}
+
+//FOR LAB6, set the process's priority (bigger value will get more CPU time) 
+void
+lab6_set_priority(uint32_t priority)
+{
+    if (priority == 0)
+        current->lab6_priority = 1;
+    else current->lab6_priority = priority;
 }
