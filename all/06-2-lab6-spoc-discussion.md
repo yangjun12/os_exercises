@@ -38,6 +38,38 @@
 
 请完成如下练习，完成代码填写，并形成spoc练习报告
 > 程序见github,[proc.c](https://github.com/yangjun12/os_exercises/blob/master/all/proc.c),[trap.c](https://github.com/yangjun12/os_exercises/blob/master/all/trap.c)
+```c
+ ***********parent in cpu_idle PID0 NAMEidle
+***********parent in do wait PID1 NAMEinit
+ kernel_execve: pid = 2, name = "exit".
+I am the parent. Forking the child...
+I am parent, fork a child pid 3
+I am the parent, waiting now..
+***********parent in do wait PID2 NAMEexit
+ I am the child.
+**********parent in trap.c PID3 NAME
+**********next  in trap.c PID3 NAME
+ **********parent in trap.c PID3 NAME
+**********next  in trap.c PID3 NAME
+ **********parent in trap.c PID3 NAME
+**********next  in trap.c PID3 NAME
+ **********parent in trap.c PID3 NAME
+**********next  in trap.c PID3 NAME
+ **********parent in trap.c PID3 NAME
+**********next  in trap.c PID3 NAME
+ **********parent in trap.c PID3 NAME
+**********next  in trap.c PID3 NAME
+ **********parent in trap.c PID3 NAME
+**********next  in trap.c PID3 NAME
+ ***********parent in exit.c PID3 NAME
+***********next in do wait PID2 NAMEexit
+ waitpid 3 ok.
+exit pass.
+***********parent in exit.c PID2 NAMEexit
+***********next in do wait PID1 NAMEinit
+ ***********parent in init_main PID1 NAMEinit
+ ***********next in init_main PID1 NAMEinit
+```
 
 ### 练习用的[lab6 spoc exercise project source code](https://github.com/chyyuu/ucore_lab/tree/master/labcodes_answer/lab6_result)
 
