@@ -153,3 +153,37 @@ threads.append(South("S-man", road, north,south))
 for thread in threads: 
    thread.start() 
 ```
+###运行结果
+
+```
+pass middle brdge
+pass middle brdge
+pass south brdgepass north brdge
+
+pass middle brdge
+pass middle brdge
+pass south brdgepass north brdge
+
+pass middle brdge
+pass middle brdge
+pass south brdgepass north brdge
+
+pass middle brdge
+pass middle brdge
+pass north brdgepass south brdge
+
+pass middle brdge
+pass middle brdge
+pass north brdgepass south brdge
+
+pass middle brdge
+pass middle brdge
+pass north brdgepass south brdge
+
+pass middle brdge
+pass middle brdge
+pass south brdgepass north brdge
+
+······················
+
+```
