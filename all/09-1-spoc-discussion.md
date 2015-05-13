@@ -59,8 +59,9 @@
 ## 小组思考题
  1. (spoc)完成Simple File System的功能，支持应用程序的一般文件操作。具体帮助和要求信息请看[sfs-homework](https://github.com/chyyuu/ucore_lab/blob/master/related_info/lab8/sfs-homework.md)
  
+以下为实现的关于文件的四个函数的具体细节以及代码：
 ```python
-\#! /usr/bin/env python
+#! /usr/bin/env python
 
 import random
 from optparse import OptionParser
