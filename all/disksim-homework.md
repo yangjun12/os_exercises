@@ -70,15 +70,17 @@ TOTALS      Seek: 40  Rotate:275  Transfer: 60  Total: 375
 ```
 请回答每个磁盘请求序列的IO访问时间
 
-> 
+
 ```
 ./disksim.py   -a 6
-Block: 6  Seek: 0   Rotate: 345  Transfer: 30  Total: 375 <br />
+Block: 6  Seek: 0   Rotate: 345  Transfer: 30  Total: 375 
+
 TOTALS    Seek: 0   Rotate: 345  Transfer: 30  Total: 375
 ```
 ```
 ./disksim.py   -a 30
-Block: 30  Seek: 80   Rotate: 265  Transfer: 30  Total: 375 <br />
+Block: 30  Seek: 80   Rotate: 265  Transfer: 30  Total: 375 
+
 TOTALS     Seek: 80   Rotate: 265  Transfer: 30  Total: 375
 ```
 ```
@@ -86,7 +88,7 @@ TOTALS     Seek: 80   Rotate: 265  Transfer: 30  Total: 375
 Block:  7  Seek:  0   Rotate:  15  Transfer: 30  Total:  45
 Block: 30  Seek: 80   Rotate: 220  Transfer: 30  Total: 330
 Block:  8  Seek: 80   Rotate: 310  Transfer: 30  Total: 420
-<br />
+
 TOTALS     Seek:160   Rotate: 545  Transfer: 90  Total: 795
 ```
 ```
@@ -106,7 +108,7 @@ TOTALS     Seek:160   Rotate: 965  Transfer:180  Total:1305
 ./disksim.py   -a 10,11,12,13,24,1
 ```
 请回答每个磁盘请求序列的IO访问时间
-> 
+
 ```
 ./disksim.py   -a 10,11,12,13,24,1
 Block: 10  Seek:  0   Rotate: 105  Transfer: 30  Total: 135
@@ -115,7 +117,7 @@ Block:  1  Seek:  0   Rotate:  30  Transfer: 30  Total:  60
 Block: 12  Seek: 40   Rotate: 260  Transfer: 30  Total: 330
 Block: 13  Seek:  0   Rotate:   0  Transfer: 30  Total:  30
 Block: 24  Seek: 40   Rotate: 260  Transfer: 30  Total: 330
-<br />
+
 TOTALS     Seek: 80   Rotate: 655  Transfer:180  Total: 915
 ```
 
@@ -125,6 +127,7 @@ TOTALS     Seek: 80   Rotate: 655  Transfer:180  Total: 915
 ```
 请回答每个磁盘请求序列的IO访问时间
 > 这两个算法的结果应该与SSTF结果相同
+
 ```
 ./disksim.py   -a 10,11,12,13,24,1
 Block: 10  Seek:  0   Rotate: 105  Transfer: 30  Total: 135
@@ -133,7 +136,7 @@ Block:  1  Seek:  0   Rotate:  30  Transfer: 30  Total:  60
 Block: 12  Seek: 40   Rotate: 260  Transfer: 30  Total: 330
 Block: 13  Seek:  0   Rotate:   0  Transfer: 30  Total:  30
 Block: 24  Seek: 40   Rotate: 260  Transfer: 30  Total: 330
-<br />
+
 TOTALS     Seek: 80   Rotate: 655  Transfer:180  Total: 915
 ```
 
