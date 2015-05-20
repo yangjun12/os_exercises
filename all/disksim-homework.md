@@ -73,14 +73,12 @@ TOTALS      Seek: 40  Rotate:275  Transfer: 60  Total: 375
 > 
 ```
 ./disksim.py   -a 6
-Block: 6  Seek: 0   Rotate: 345  Transfer: 30  Total: 375
-<br />
+Block: 6  Seek: 0   Rotate: 345  Transfer: 30  Total: 375 <br />
 TOTALS    Seek: 0   Rotate: 345  Transfer: 30  Total: 375
 ```
 ```
 ./disksim.py   -a 30
-Block: 30  Seek: 80   Rotate: 265  Transfer: 30  Total: 375
-<br />
+Block: 30  Seek: 80   Rotate: 265  Transfer: 30  Total: 375 <br />
 TOTALS     Seek: 80   Rotate: 265  Transfer: 30  Total: 375
 ```
 ```
