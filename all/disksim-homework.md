@@ -99,7 +99,7 @@ Block: 12  Seek: 40   Rotate: 320  Transfer: 30  Total: 390
 Block: 13  Seek:  0   Rotate:   0  Transfer: 30  Total:  30
 Block: 24  Seek: 40   Rotate: 260  Transfer: 30  Total: 330
 Block:  1  Seek: 80   Rotate: 280  Transfer: 30  Total: 420
-<br />
+
 TOTALS     Seek:160   Rotate: 965  Transfer:180  Total:1305
 ```
 
