@@ -73,8 +73,11 @@ int FetchAndAdd(int *ptr) {
   return old;
 }
 ```
-flag.s: jne .acquire # if not, try again mov $1, flag # store 1 into flag 之间如果插入一条指令，那么就会有冲突,所以x86.py -p flag.s -t 1 -R ax,bx -c 和 x86.py -p flag.s -t 1 -R ax,bx -c 返回值分别为2和4,没有实现
+
+```
+flag.s: jne .acquire # if not, try again mov $1, flag # store 1 into flag    之间如果插入一条指令，那么就会有冲突,所以x86.py -p flag.s -t 1 -R ax,bx -c 和 x86.py -p flag.s -t 1 -R ax,bx -c   返回值分别为2和4,没有实现
 peterson.s:               x86.py -p flag.s -t 1 -i 7 -R ax,bx -c 和 x86.py -p flag.s -t 1 -i 1 -R ax,bx -c 返回值分别为4和1，没有实现
-test-and-set.s:x86.py -p flag.s -t 1 -R ax,bx -c 和 x86.py -p flag.s -t 1 -R ax,bx -c 返回值分别为3和3，另外通过查看代码，发现它是实现了锁机制
+test-and-set.s:x86.py -p flag.s -t 1 -R ax,bx -c 和 x86.py -p flag.s -t 1 -R ax,bx -c      返回值分别为3和3，另外通过查看代码，发现它是实现了锁机制
 ticket.s:x86.py -p flag.s -t 2 -R ax,bx -c 和 x86.py -p flag.s -t 1 -R ax,bx,cx -c 返回值分别1,-1,1，通过查看代码，发现它是实现了锁机制
 test-and-test-and-set.s:x86.py -p flag.s -t 1 -R ax,bx -c 和 x86.py -p flag.s -t 1 -R ax,bx -c 返回值分别为2和4，通过查看代码，发现它是实现了锁机制
+```
